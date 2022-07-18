@@ -19,6 +19,7 @@ class SecondFragment : Fragment() {
         view.findViewById<Button>(R.id.second_btn_00).setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_secondFragment_to_thirdFragment)
         }
+
         return view
     }
 }
