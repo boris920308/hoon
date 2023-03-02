@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    스타일 이름을 원하는 대로 지정할 수 있지만 권장되는 규칙이 있습니다.
+        상위 머티리얼 스타일에서 상속하는 경우 유사한 방식으로 MaterialComponents를 앱 이름(TipTime)으로 바꿔 스타일 이름을 지정합니다.
+        그러면 변경사항이 고유한 네임스페이스로 이동되어 향후 머티리얼 구성요소에 새로운 스타일이 도입될 때 충돌이 발생할 가능성이 없어집니다. 예를 들면 다음과 같습니다.
+        스타일 이름 Widget.TipTime.TextView가 상위 스타일 Widget.MaterialComponents.TextView에서 상속됩니다-->
+    <style name="Widget.TipTime.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:minHeight">@dimen/min_text_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.TipTime.CompoundButton.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:minHeight">@dimen/min_text_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.TipTime.CompoundButton.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+</resources>
