@@ -57,8 +57,6 @@ class CalculatorTests {
          * 이 테스트에서는 ID가 tip_result인 TextView에 예상 팁 값이 문자열 형식으로 포함되어 있는지 확인합니다.
          */
         onView(withId(R.id.tip_result))
-            .check(matches(withText(containsString("$10.00"))))
-
-        println("success")
+            .check(matches(withText(containsString("₩10"))))
     }
 }
