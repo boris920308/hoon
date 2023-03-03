@@ -1,3 +1,5 @@
+package unit02.part1
+
 import kotlin.math.PI
 import kotlin.math.sqrt
 
@@ -66,7 +68,7 @@ abstract class Dwelling(private var residents: Int) {
 }
 
 class SquareCabin(residents: Int, val length: Double) : Dwelling(residents) {
-//    override val buildingMaterial = "Wood"
+    //    override val buildingMaterial = "Wood"
 //    override val capacity = 6
     override val capacity: Int
         get() = 6
