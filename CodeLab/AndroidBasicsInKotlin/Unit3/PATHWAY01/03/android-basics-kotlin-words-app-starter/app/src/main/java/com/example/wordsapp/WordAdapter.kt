@@ -16,6 +16,8 @@
 package com.example.wordsapp
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -81,7 +83,23 @@ class WordAdapter(private val letterId: String, context: Context) :
 
         // Set the text of the WordViewHolder
         holder.button.text = item
+        holder.button.setOnClickListener {
+            val queryUrl: Uri = Uri.parse("${DetailActivity.SEARCH_PREFIX}${item}")
 
+            /**
+             *
+             * ACTION_VIEW는 URI(이 경우 웹 주소)를 사용하는 일반적인 인텐트입니다. 그러면 시스템은 사용자의 웹브라우저에서 URI를 열어 이 인텐트를 처리할 수 있습니다. 다른 인텐트 유형은 다음과 같습니다.
+             *   CATEGORY_APP_MAPS - 지도 앱을 실행합니다.
+             *   CATEGORY_APP_EMAIL - 이메일 앱을 실행합니다.
+             *   CATEGORY_APP_GALLERY - 갤러리(사진) 앱을 실행합니다.
+             *   ACTION_SET_ALARM - 백그라운드에서 알람을 설정합니다.
+             *   ACTION_DIAL - 전화를 겁니다.
+             *   참조 : https://developer.android.com/guide/components/intents-common?authuser=2&hl=ko
+             */
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+
+            context.startActivity(intent)
+        }
     }
     // Setup custom accessibility delegate to set the text read with
     // an accessibility service

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--    id: 뷰와 마찬가지로 메뉴 옵션에는 코드에서 참조할 수 있도록 ID가 있습니다.
+            title: 이 텍스트는 실제로 이 경우에 표시되지 않지만 스크린 리더에서 메뉴를 식별하는 데 유용할 수 있습니다.
+            icon: 기본값은 ic_linear_layout입니다. 그러나 버튼이 선택될 때 그리드 아이콘을 표시하기 위해 사용 설정되거나 사용 중지됩니다.
+            showAsAction: 시스템에 버튼 표시 방법을 알려줍니다. 항상으로 설정되어 있으므로 이 버튼은 앱 바에 항상 표시되고 더보기 메뉴에 속하지 않습니다.-->
+    <item android:id="@+id/action_switch_layout"
+        android:title="@string/action_switch_layout"
+        android:icon="@drawable/ic_linear_layout"
+        app:showAsAction="always" />
+</menu>
