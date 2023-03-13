@@ -5,12 +5,6 @@ import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
-
-    init {
-        Log.d("GameFragment", "GameViewModel created!")
-        getNextWord()
-    }
-
     private var _score = 0
     val score: Int
         get() = _score
@@ -27,6 +21,10 @@ class GameViewModel : ViewModel() {
     private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var currentWord: String
 
+    init {
+        Log.d("GameFragment", "GameViewModel created!")
+        getNextWord()
+    }
 
     /**
      * 경고: ViewModel에서 변경 가능한 데이터 입력란을 노출하지 마세요.
