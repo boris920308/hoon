@@ -5,6 +5,29 @@ import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
+
+    init {
+        Log.d("GameFragment", "GameViewModel created!")
+        getNextWord()
+    }
+
+    private var _score = 0
+    val score: Int
+        get() = _score
+
+    private var _currentWordCount = 0
+    val currentWordCount: Int
+        get() = _currentWordCount
+
+
+    private lateinit var _currentScrambledWord: String
+    val currentScrambledWord: String
+        get() = _currentScrambledWord
+
+    private var wordsList: MutableList<String> = mutableListOf()
+    private lateinit var currentWord: String
+
+
     /**
      * 경고: ViewModel에서 변경 가능한 데이터 입력란을 노출하지 마세요.
      * 다른 클래스에서 이 데이터를 수정할 수 없도록 해야 합니다.
@@ -24,32 +47,33 @@ class GameViewModel : ViewModel() {
             getNextWord()
         } else {
             _currentScrambledWord = String(tempWord)
-            ++currentWordCount
+            ++_currentWordCount
             wordsList.add(currentWord)
         }
     }
 
-//    fun nextWord() {
-//        return if (currentWord < MAX_NO_OF_WORDS) {
-//            getNextWord()
-//            true
-//        } else false
-//    }
-
-    init {
-        Log.d("GameFragment", "GameViewModel created!")
-        getNextWord()
+    /*
+    * Returns true if the current word count is less than MAX_NO_OF_WORDS.
+    * Updates the next word.
+    */
+    fun nextWord(): Boolean {
+        return if (_currentWordCount < MAX_NO_OF_WORDS) {
+            getNextWord()
+            true
+        } else false
     }
 
-    private var score = 0
-    private var currentWordCount = 0
+    private fun increaseScore() {
+        _score += SCORE_INCREASE
+    }
 
-    private lateinit var _currentScrambledWord: String
-    val currentScrambledWord: String
-        get() = _currentScrambledWord
-
-    private var wordsList: MutableList<String> = mutableListOf()
-    private lateinit var currentWord: String
+    fun isUserWordCorrect(playerWord: String): Boolean {
+        if (playerWord.equals(currentWord, true)) {
+            increaseScore()
+            return true
+        }
+        return false
+    }
 
     override fun onCleared() {
         /**
@@ -59,5 +83,12 @@ class GameViewModel : ViewModel() {
          */
         super.onCleared()
         Log.d("GameFragment", "GameViewModel destroyed!")
+    }
+
+    fun reinitializeData() {
+        _score = 0
+        _currentWordCount = 0
+        wordsList.clear()
+        getNextWord()
     }
 }
