@@ -75,16 +75,6 @@ class GameViewModel : ViewModel() {
         return false
     }
 
-    override fun onCleared() {
-        /**
-         * 클래스에서 onCleared() 메서드를 재정의합니다.
-         * ViewModel은 연결된 프래그먼트가 분리되거나 활동이 완료되면 소멸됩니다.
-         * ViewModel이 소멸되기 직전에 onCleared() 콜백이 호출됩니다.
-         */
-        super.onCleared()
-        Log.d("GameFragment", "GameViewModel destroyed!")
-    }
-
     fun reinitializeData() {
         _score.value = 0
         _currentWordCount.value = 0
