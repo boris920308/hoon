@@ -26,6 +26,14 @@ import com.example.android.marsphotos.databinding.FragmentOverviewBinding
 
 /**
  * This fragment shows the the status of the Mars photos web services transaction.
+ *
+ * MainActivity 내에 표시되는 프래그먼트입니다.
+ * 이전 단계에서 확인한 자리표시자 텍스트가 이 프래그먼트에 표시됩니다.
+ * 다음 Codelab에서 이 프래그먼트는 화성 사진 백엔드 서버에서 받은 데이터를 표시합니다.
+ * 이 클래스는 OverviewViewModel 객체 참조를 보유합니다.
+ * OverviewFragment에는 데이터 결합을 사용하여 fragment_overview 레이아웃을 확장하고
+ * 결합 수명 주기 소유자를 자체로 설정하고 결합 객체의 viewModel 변수를 자체로 설정하는 onCreateView() 함수가 있습니다.
+ * 수명 주기 소유자가 할당되므로 데이터 결합에 사용된 모든 LiveData의 변경이 자동으로 관찰되며, 변경사항에 따라 UI가 업데이트됩니다.
  */
 class OverviewFragment : Fragment() {
 

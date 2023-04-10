@@ -22,6 +22,11 @@ import androidx.lifecycle.ViewModel
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
+ *
+ * OverviewFragment에 상응하는 뷰 모델입니다.
+ * 이 클래스에는 지원 속성과 함께 _status라는 MutableLiveData 속성이 있습니다. 이 속성의 값을 업데이트하면 화면에 표시되는 자리표시자 텍스트가 업데이트됩니다.
+ * getMarsPhotos() 메서드는 자리표시자 응답을 업데이트합니다. Codelab 후반에 이 메서드를 사용하여 서버에서 가져온 데이터를 표시합니다.
+ * 이 Codelab의 목표는 인터넷에서 가져오는 실제 데이터를 사용하여 ViewModel 내에서 status LiveData를 업데이트하는 것입니다.
  */
 class OverviewViewModel : ViewModel() {
 
