@@ -32,15 +32,17 @@ import kotlinx.coroutines.launch
  * getMarsPhotos() 메서드는 자리표시자 응답을 업데이트합니다. Codelab 후반에 이 메서드를 사용하여 서버에서 가져온 데이터를 표시합니다.
  * 이 Codelab의 목표는 인터넷에서 가져오는 실제 데이터를 사용하여 ViewModel 내에서 status LiveData를 업데이트하는 것입니다.
  */
+
+enum class MarsApiStatus { LOADING, ERROR, DONE }
+
 class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<MarsApiStatus>()
+    val status: LiveData<MarsApiStatus> = _status
     private val _photos = MutableLiveData<List<MarsPhoto>>()
     val photos: LiveData<List<MarsPhoto>> = _photos
 
-    // The external immutable LiveData for the request status
-    val status: LiveData<String> = _status
     /**
      * Call getMarsPhotos() on init so we can display status immediately.
      */
@@ -54,11 +56,13 @@ class OverviewViewModel : ViewModel() {
      */
     private fun getMarsPhotos() {
         viewModelScope.launch {
+            _status.value = MarsApiStatus.LOADING
             try {
                 _photos.value = MarsApi.retrofitService.getPhotos()
-                _status.value = "Success: Mars properties retrieved"
+                _status.value = MarsApiStatus.DONE
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _status.value = MarsApiStatus.ERROR
+                _photos.value = listOf()
             }
         }
     }
