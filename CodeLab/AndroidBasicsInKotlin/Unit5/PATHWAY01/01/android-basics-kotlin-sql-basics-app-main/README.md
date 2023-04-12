@@ -16,3 +16,8 @@ When the app is running, you'll be able to send SQL commands to the database via
 2. Download the sample.
 3. Import the sample into Android Studio.
 4. Build and run the sample.
+   
+
+변경사항
+---------------
+- 구글 코드랩을 완료하면 변경되는 사항이 적용되어있음.
