@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.busschedule.database.schedule.Schedule
 import com.example.busschedule.database.schedule.ScheduleDao
 
 
@@ -19,7 +20,7 @@ import com.example.busschedule.database.schedule.ScheduleDao
  *
  */
 
-@Database(entities = [ScheduleDao::class], version = 1)
+@Database(entities = [Schedule::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun scheduleDao(): ScheduleDao
