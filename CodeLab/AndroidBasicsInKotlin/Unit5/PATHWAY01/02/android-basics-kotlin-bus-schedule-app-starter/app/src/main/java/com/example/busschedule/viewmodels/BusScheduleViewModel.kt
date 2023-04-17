@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.busschedule.database.schedule.Schedule
 import com.example.busschedule.database.schedule.ScheduleDao
+import kotlinx.coroutines.flow.Flow
 
 class BusScheduleViewModel(private val scheduleDao: ScheduleDao): ViewModel() {
 
-    fun fullSchedule(): List<Schedule> = scheduleDao.getAll()
+    fun fullSchedule(): Flow<List<Schedule>> = scheduleDao.getAll()
 
-    fun scheduleForStopName(name: String): List<Schedule> = scheduleDao.getByStopName(name)
+    fun scheduleForStopName(name: String): Flow<List<Schedule>> = scheduleDao.getByStopName(name)
 
     /**
      * 뷰 모델 정의를 완료했지만 BusScheduleViewModel을 직접 인스턴스화하고 모든 것이 작동할 것으로 기대할 수는 없습니다.
