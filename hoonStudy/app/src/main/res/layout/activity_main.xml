@@ -16,5 +16,10 @@
         android:layout_height="wrap_content"
         android:text="live data"
         />
+    <Button
+        android:id="@+id/btn_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="flow"/>
 
 </LinearLayout>
