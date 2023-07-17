@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // test
+
+        // test_main
     }
 
     private fun <T> startActivity(clazz: Class<T>) {
