@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnExam.setOnClickListener {
             startActivity(ExamActivity::class.java)
         }
+
+        // test
     }
 
     private fun <T> startActivity(clazz: Class<T>) {
