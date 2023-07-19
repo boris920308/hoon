@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hoon.study.hoonstudy.databinding.ActivityMainBinding
+import hoon.study.hoonstudy.hoon_coroutine.HoonCoroutineActivity
 import hoon.study.hoonstudy.hoon_exam.ExamActivity
 import hoon.study.hoonstudy.hoon_flow.HoonFlowActivity
 import hoon.study.hoonstudy.hoon_livedata.HoonLiveDataActivity
@@ -31,8 +32,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnExam.setOnClickListener {
             startActivity(ExamActivity::class.java)
         }
+        binding.btnCoroutine.setOnClickListener {
+            startActivity(HoonCoroutineActivity::class.java)
+        }
 
-        // test
     }
 
     private fun <T> startActivity(clazz: Class<T>) {

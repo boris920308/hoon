@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingHorizontal="40dp"
+    android:orientation="vertical"
+    tools:context=".hoon_coroutine.HoonCoroutineActivity">
+
+    <TextView
+        android:id="@+id/tv_result_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_secondary"
+        android:text="hello coroutine"
+        />
+
+    <TextView
+        android:id="@+id/tv_result_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_dynamic_neutral60"
+        android:text="hello coroutine"
+        />
+    <TextView
+        android:id="@+id/tv_result_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_dynamic_neutral40"
+        android:textColor="@color/white"
+        android:text="hello coroutine"
+        />
+
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="run"
+        />
+
+</LinearLayout>

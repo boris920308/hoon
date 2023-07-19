@@ -15,6 +15,9 @@
         android:theme="@style/Theme.HoonStudy"
         tools:targetApi="31">
         <activity
+            android:name=".hoon_coroutine.HoonCoroutineActivity"
+            android:exported="false" />
+        <activity
             android:name=".hoon_exam.ExamActivity"
             android:exported="false" />
         <activity
