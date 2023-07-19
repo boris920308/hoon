@@ -8,6 +8,7 @@ import hoon.study.hoonstudy.hoon_coroutine.HoonCoroutineActivity
 import hoon.study.hoonstudy.hoon_exam.ExamActivity
 import hoon.study.hoonstudy.hoon_flow.HoonFlowActivity
 import hoon.study.hoonstudy.hoon_livedata.HoonLiveDataActivity
+import hoon.study.hoonstudy.hoon_navi.HoonNaviActivity
 import hoon.study.hoonstudy.hoon_rx.HoonRxActivity
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnCoroutine.setOnClickListener {
             startActivity(HoonCoroutineActivity::class.java)
+        }
+        binding.btnNavigation.setOnClickListener {
+            startActivity(HoonNaviActivity::class.java)
         }
 
     }
