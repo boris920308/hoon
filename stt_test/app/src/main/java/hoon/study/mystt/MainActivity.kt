@@ -1,18 +1,25 @@
 package hoon.study.mystt
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import hoon.study.mystt.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var speechRecognizer: SpeechRecognizer
+    private val requiredPermissions = arrayOf(
+        android.Manifest.permission.RECORD_AUDIO,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,67 +31,85 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
 
         binding.btnStart.setOnClickListener {
-            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
-            speechRecognizer.setRecognitionListener(object :RecognitionListener {
-                override fun onReadyForSpeech(p0: Bundle?) {
-                    Log.d("hoon92", "onReadyForSpeech()")
-                    binding.tvState.text = "ready"
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkPermission()) {
+                runSpeechRecognizer()
+            }
+        }
+    }
+
+    private fun runSpeechRecognizer() {
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        speechRecognizer.setRecognitionListener(object :RecognitionListener {
+            override fun onReadyForSpeech(p0: Bundle?) {
+                Log.d("hoon92", "onReadyForSpeech()")
+                binding.tvState.text = "ready"
+            }
+
+            override fun onBeginningOfSpeech() {
+                Log.d("hoon92", "onBeginningOfSpeech()")
+                binding.tvState.text = "recoding.."
+            }
+
+            override fun onRmsChanged(p0: Float) {
+                Log.d("hoon92", "onRmsChanged(), 입력받는 소리의크기 = $p0")
+            }
+
+            override fun onBufferReceived(p0: ByteArray?) {
+                Log.d("hoon92", "onBufferReceived()")
+            }
+
+            override fun onEndOfSpeech() {
+                Log.d("hoon92", "onEndOfSpeech()")
+                binding.tvState.text = "end"
+            }
+
+            override fun onError(p0: Int) {
+                Log.d("hoon92", "onError()")
+                val message = when (p0) {
+                    SpeechRecognizer.ERROR_AUDIO -> "ERR_AUDIO"
+                    SpeechRecognizer.ERROR_CLIENT -> "ERR_CLIENT"
+                    SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "ERR_NO_PERMISSION"
+                    SpeechRecognizer.ERROR_NETWORK -> "ERR_NETWORK"
+                    SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "ERR_NETWORK_TIMEOUT"
+                    SpeechRecognizer.ERROR_NO_MATCH -> "ERR_NO_MATCH"
+                    SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "ERR_BUSY"
+                    SpeechRecognizer.ERROR_SERVER -> "ERR_SERVER"
+                    SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "ERR_TIMEOUT"
+                    else -> "ERR"
                 }
+                binding.tvResult.text = "err"
+                binding.tvState.text = "err: $message"
+            }
 
-                override fun onBeginningOfSpeech() {
-                    Log.d("hoon92", "onBeginningOfSpeech()")
-                    binding.tvState.text = "recoding.."
-                }
+            override fun onResults(p0: Bundle?) {
+                Log.d("hoon92", "onResults(), ${p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)}")
+                val resultMsg = p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) ?: "no result"
 
-                override fun onRmsChanged(p0: Float) {
-                    Log.d("hoon92", "onRmsChanged(), 입력받는 소리의크기 = $p0")
-                }
+                binding.tvResult.text = "result = $resultMsg"
+                binding.tvState.text = "idle"
+            }
 
-                override fun onBufferReceived(p0: ByteArray?) {
-                    Log.d("hoon92", "onBufferReceived()")
-                }
+            override fun onPartialResults(p0: Bundle?) {
+                Log.d("hoon92", "onPartialResults()")
+            }
 
-                override fun onEndOfSpeech() {
-                    Log.d("hoon92", "onEndOfSpeech()")
-                    binding.tvState.text = "end"
-                }
+            override fun onEvent(p0: Int, p1: Bundle?) {
+                Log.d("hoon92", "onEvent()")
+            }
 
-                override fun onError(p0: Int) {
-                    Log.d("hoon92", "onError()")
-                    val message = when (p0) {
-                        SpeechRecognizer.ERROR_AUDIO -> "ERR_AUDIO"
-                        SpeechRecognizer.ERROR_CLIENT -> "ERR_CLIENT"
-                        SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "ERR_NO_PERMISSION"
-                        SpeechRecognizer.ERROR_NETWORK -> "ERR_NETWORK"
-                        SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "ERR_NETWORK_TIMEOUT"
-                        SpeechRecognizer.ERROR_NO_MATCH -> "ERR_NO_MATCH"
-                        SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "ERR_BUSY"
-                        SpeechRecognizer.ERROR_SERVER -> "ERR_SERVER"
-                        SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "ERR_TIMEOUT"
-                        else -> "ERR"
-                    }
-                    binding.tvResult.text = "err"
-                    binding.tvState.text = "err: $message"
-                }
+        })
+        speechRecognizer.startListening(intent)
+    }
 
-                override fun onResults(p0: Bundle?) {
-                    Log.d("hoon92", "onResults(), ${p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)}")
-                    val resultMsg = p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) ?: "no result"
-
-                    binding.tvResult.text = "result = $resultMsg"
-                    binding.tvState.text = "idle"
-                }
-
-                override fun onPartialResults(p0: Bundle?) {
-                    Log.d("hoon92", "onPartialResults()")
-                }
-
-                override fun onEvent(p0: Int, p1: Bundle?) {
-                    Log.d("hoon92", "onEvent()")
-                }
-
-            })
-            speechRecognizer.startListening(intent)
+    private fun checkPermission(): Boolean {
+        return if (requiredPermissions.all {
+                ContextCompat.checkSelfPermission(this,it) == PackageManager.PERMISSION_GRANTED
+            }) {
+            Toast.makeText(this, "권한이 모두 허용됨", Toast.LENGTH_SHORT).show()
+            true
+        } else {
+            requestPermissions(requiredPermissions, 1)
+            false
         }
     }
 }
